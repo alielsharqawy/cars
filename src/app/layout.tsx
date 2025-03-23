@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
-import { Tajawal } from "@next/font/google";
+import { Cairo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-// استيراد خط Tajawal
-const tajawal = Tajawal({
-  subsets: ["arabic"],
-  weight: ["400", "700"],
-  variable: "--font-tajawal",
+const cairoFont = Cairo({
+  variable: "--font-cairo",
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -21,7 +20,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${tajawal.variable} antialiased bg-gray-50`}>
+      <body className={`${cairoFont.variable} antialiased bg-gray-50`}>
         <Navbar />
         <main>{children}</main>
         <Footer />
