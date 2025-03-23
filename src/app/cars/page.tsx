@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import hero from "@/app/buy-car/assets/buy-car.png";
+import hero from "@/app/cars/assets/buy-car.png";
 import Sidebar from "./components/Sidebar";
 import Content from "./components/Content";
 

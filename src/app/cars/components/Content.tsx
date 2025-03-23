@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Car from "@/app/buy-car/assets/car.png";
+import Car from "@/app/cars/assets/car.png";
 
 const Content = () => {
   const cars = [
@@ -35,12 +35,14 @@ const Content = () => {
 
               <div className="flex justify-between items-center mb-1">
                 <p className="text-xl font-bold ">{car.price}</p>
-                <p className="text-blue-600 text-sm font-bold">{car.installment}</p>
+                <p className="text-blue-600 text-sm font-bold">
+                  {car.installment}
+                </p>
               </div>
               <div className="flex justify-start items-center gap-3 text-gray-500 text-sm font-bold">
-                        <span>{car.km}</span>
+                <span>{car.km}</span>
                 <span>{car.year}</span>
-                        <span>اوتوماتيك</span>
+                <span>اوتوماتيك</span>
               </div>
             </div>
           </div>

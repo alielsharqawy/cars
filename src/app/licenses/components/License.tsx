@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import license from "@/app/license-plates/assets/num.png";
+import license from "@/app/licenses/assets/num.png";
 
 const License = () => {
   const licenses = Array.from({ length: 20 }, (_, index) => ({

@@ -2,104 +2,88 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FiMenu } from "react-icons/fi";
-import Logo from "@/assets/logo.png";
+import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png";
+
+type NavLink = {
+  href: string;
+  label: string;
+};
+
+const NAV_LINKS: NavLink[] = [
+  { href: "/", label: "الرئيسية" },
+  { href: "/trainer", label: "مدربين" },
+  { href: "#", label: "أسئلة ذكية" },
+  { href: "/cars", label: "بيع سيارات" },
+  { href: "/licenses", label: "بيع اللوحات المميزة" },
+];
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   return (
-    <nav
-      className="flex items-center justify-between px-6 py-1 bg-white"
-      dir="rtl"
-    >
-      {/* logo */}
-      <div className="logo">
-        <Image src={Logo} alt="logo-image" width={120} height={50} />
+    <nav className="w-full flex items-center justify-between py-4 px-6 bg-gradient-to-r bg-white text-blue-500 shadow-lg z-50">
+      {/* Logo */}
+      <div className="flex items-center space-x-3">
+        <Image src={logo} alt="Logo" width={70} height={50} />
+        <h1 className="text-white text-2xl font-bold hidden md:block">MyApp</h1>
       </div>
-
-      {/* mobile menu*/}
-      <div className="md:hidden">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-2xl text-blue-900"
-        >
-          <FiMenu />
+      
+      {/* Desktop Links */}
+      <div className="hidden md:flex space-x-6">
+        {NAV_LINKS.map((link, index) => (
+          <Link
+            key={index}
+            href={link.href}
+            className="text-blue-500 hover:text-blue-800 text-lg font-semibold transition-colors duration-300"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
+      
+      {/* Desktop Buttons */}
+      <div className="hidden md:flex space-x-4">
+        <button className="text-blue-500 hover:text-blue-800 text-lg font-semibold transition-colors duration-300">
+          تسجيل دخول
+        </button>
+        <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-lg font-semibold transition-transform duration-300 transform hover:scale-105">
+          اشتراك
         </button>
       </div>
-
-      {/* links */}
-      <ul className="hidden md:flex space-x-6 space-x-reverse text-blue-900 text-lg">
-        {[
-          "الرئيسيه",
-          "مدربين",
-          "اسئله ذكيه",
-          "بيع سيارات",
-          "بيع اللوحات المميزه",
-        ].map((item, index) => (
-          <li key={index}>
+      
+      {/* Mobile Menu Button */}
+      <button
+        className="md:hidden text-blue-500"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? <X size={28} /> : <Menu size={28} />}
+      </button>
+      
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden absolute top-16 w-[80%] left-1/2 transform -translate-x-1/2 p-6 text-blue-500 rounded-lg shadow-xl space-y-4 text-center z-50 transition-all duration-300">
+          {NAV_LINKS.map((link, index) => (
             <Link
-              href={`/${item === "الرئيسيه" ? "" : item.replace(/\s+/g, "-")}`}
-              className="hover:text-gray-700"
+              key={index}
+              href={link.href}
+              className="block text-blue-800 hover:text-blue-600 text-xl font-semibold transition-colors duration-300"
+              onClick={() => setMenuOpen(false)}
             >
-              {item}
+              {link.label}
             </Link>
-          </li>
-        ))}
-      </ul>
-
-      {/*  buttons */}
-      <div className="flex items-center space-x-4 space-x-reverse">
-        <div className="hidden md:flex gap-3">
-          <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+          ))}
+          <button 
+            className="block w-full py-2 text-lg rounded-lg bg-blue-700 text-blue-500 hover:bg-blue-800 transition-all duration-300 mt-3"
+            onClick={() => setMenuOpen(false)}
+          >
+            تسجيل دخول
+          </button>
+          <button 
+            className="block w-full py-2 text-lg rounded-lg bg-yellow-500 text-blue-500 hover:bg-yellow-600 transition-all duration-300"
+            onClick={() => setMenuOpen(false)}
+          >
             اشتراك
           </button>
-          <button className="px-4 py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition">
-            تسجيل الدخول
-          </button>
-        </div>
-      </div>
-
-      {/* drawer */}
-      {isOpen && (
-        <div className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg p-6 md:hidden">
-          <button
-            onClick={() => setIsOpen(false)}
-            className="text-2xl text-gray-600 absolute top-4 left-4"
-          >
-            ✖
-          </button>
-          <ul className="flex flex-col space-y-4 text-blue-900 text-lg font-semibold mt-10">
-            {[
-              "الرئيسيه",
-              "مدربين",
-              "اسئله ذكيه",
-              "بيع سيارات",
-              "بيع اللوحات المميزه",
-            ].map((item, index) => (
-              <li key={index}>
-                <Link
-                  href={`/${
-                    item === "الرئيسيه" ? "" : item.replace(/\s+/g, "-")
-                  }`}
-                  className="block py-2 px-4 hover:bg-gray-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          {/* button drawer */}
-          <div className="mt-6 flex flex-col gap-3">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-              اشتراك
-            </button>
-            <button className="px-4 py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition">
-              تسجيل الدخول
-            </button>
-          </div>
         </div>
       )}
     </nav>
