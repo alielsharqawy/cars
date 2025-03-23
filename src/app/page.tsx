@@ -4,32 +4,30 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import hero1 from "@/assets/hero1.jpg";
-import hero2 from "@/assets/hero2.jpg";
-import hero3 from "@/assets/hero3.jpg";
+import hero from "@/assets/hero.png";
 import Services from "@/components/home/ServiceCard";
 import SubscriptionsSection from "@/components/home/SubscriptionsSection";
 
 // Define types for slides
 type Slide = {
-  image: typeof hero1;
+  image: typeof hero;
   title: string;
   description: string;
 };
 
 const SLIDES: Slide[] = [
   {
-    image: hero1,
+    image: hero,
     title: "اكتشف أفضل السيارات",
     description: "أفضل الأسعار والعروض في مكان واحد",
   },
   {
-    image: hero2,
+    image: hero,
     title: "بيع سيارتك بسرعة",
     description: "أسهل الطرق لبيع سيارتك بأفضل سعر",
   },
   {
-    image: hero3,
+    image: hero,
     title: "تصفح لوحات السيارات المميزة",
     description: "احصل على لوحة أحلامك بسهولة",
   },
@@ -52,7 +50,7 @@ const HeroSlide: React.FC<Slide> = ({ image, title, description }) => (
 const HeroSection: React.FC = () => {
   return (
     <div>
-      <header className="relative w-full">
+      <header className="relative w-full ">
         <Swiper
           modules={[Navigation, Pagination, Autoplay]}
           spaceBetween={0}
@@ -64,17 +62,16 @@ const HeroSection: React.FC = () => {
             prevEl: ".swiper-button-prev",
           }}
           pagination={{ clickable: true }}
-          className="relative w-full h-[60vh] md:h-[80vh]"
+           className="relative w-full h-[60vh] md:h-[80vh]"
         >
           {SLIDES.map((slide, index) => (
             <SwiperSlide key={index}>
               <HeroSlide {...slide} />
             </SwiperSlide>
           ))}
-         
         </Swiper>
       </header>
-      
+
       <div>
         <Services />
         <SubscriptionsSection />
